@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "ot",
   "version": "${version}",
 
   "name": "Example Mod",
@@ -9,21 +9,21 @@
     "Me!"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Enaium/OmniTranslation",
+    "sources": "https://github.com/Enaium/OmniTranslation"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/ot/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "cn.enaium.ot.OmniTranslation"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "ot.mixins.json"
   ],
 
   "depends": {
