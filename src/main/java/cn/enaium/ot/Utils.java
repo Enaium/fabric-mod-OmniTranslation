@@ -14,7 +14,17 @@ import java.io.InputStream;
 public class Utils {
     public static String getKey(String key) {
         try {
-            InputStream inputStream = Utils.class.getResourceAsStream("/assets/ot/zh_cn.json");
+            InputStream inputStream = Utils.class.getResourceAsStream("/assets/ot/lang/" + getConfig("language") + ".json");
+            String string = IOUtils.toString(inputStream, "utf-8");
+            return new Gson().fromJson(string, JsonObject.class).get(key).getAsString();
+        } catch (Exception e) {
+            return key;
+        }
+    }
+
+    public static String getConfig(String key) {
+        try {
+            InputStream inputStream = Utils.class.getResourceAsStream("/assets/ot/config.json");
             String string = IOUtils.toString(inputStream, "utf-8");
             return new Gson().fromJson(string, JsonObject.class).get(key).getAsString();
         } catch (Exception e) {
