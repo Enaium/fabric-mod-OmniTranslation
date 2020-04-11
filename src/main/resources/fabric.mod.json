@@ -3,14 +3,15 @@
   "id": "ot",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "OmniTranslation",
+  "description": "OmniTranslation",
   "authors": [
-    "Me!"
+    "Enaium!"
   ],
   "contact": {
     "homepage": "https://github.com/Enaium/OmniTranslation",
-    "sources": "https://github.com/Enaium/OmniTranslation"
+    "sources": "https://github.com/Enaium/OmniTranslation",
+	"issues": "https://github.com/Enaium/OmniTranslation/issues"
   },
 
   "license": "Apache-2.0",
