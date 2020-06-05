@@ -38,7 +38,6 @@ public class TextRendererMixin {
         if (text == null) {
             return 0;
         } else {
-            System.out.println(text);
             VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
             int i = MinecraftClient.getInstance().textRenderer.draw(Utils.getKey(text), x, y, color, shadow, matrix, immediate, false, 0, 15728880, mirror);
             immediate.draw();
