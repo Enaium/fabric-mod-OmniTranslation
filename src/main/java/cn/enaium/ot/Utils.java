@@ -23,6 +23,17 @@ public class Utils {
         }
     }
 
+    public static boolean has(String key) {
+        try {
+            InputStream inputStream = Utils.class.getResourceAsStream("/assets/ot/lang/" + getConfig("language") + ".json");
+            String string = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            new Gson().fromJson(string, JsonObject.class).get(key).getAsString();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public static String getConfig(String key) {
         try {
             InputStream inputStream = Utils.class.getResourceAsStream("/assets/ot/config.json");

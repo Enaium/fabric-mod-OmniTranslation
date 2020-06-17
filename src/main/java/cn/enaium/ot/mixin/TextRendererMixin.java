@@ -29,34 +29,34 @@ public abstract class TextRendererMixin {
     @Final
     private FontStorage fontStorage;
 
-    @Shadow private boolean rightToLeft;
+    @Shadow
+    private boolean rightToLeft;
 
-    @Shadow public abstract String mirror(String text);
+    @Shadow
+    public abstract String mirror(String text);
 
-    @Shadow protected abstract float drawLayer(String text, float x, float y, int color, boolean shadow, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, boolean seeThrough, int underlineColor, int light);
-
-    /**
-     * @author Enaium
-     */
-    @Overwrite
-    private int draw(String text, float x, float y, int color, Matrix4f matrix, boolean shadow) {
-        if (text == null) {
-            return 0;
-        } else {
-            String string = Utils.getKey(text);
-            VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-            int i = MinecraftClient.getInstance().textRenderer.draw(string, x, y, color, shadow, matrix, immediate, false, 0, 15728880);
-            immediate.draw();
-            return i;
-        }
-    }
+    @Shadow
+    protected abstract float drawLayer(String text, float x, float y, int color, boolean shadow, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, boolean seeThrough, int underlineColor, int light);
 
     /**
      * @author Enaium
      */
     @Overwrite
     private int drawInternal(String text, float x, float y, int color, boolean shadow, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, boolean seeThrough, int backgroundColor, int light) {
+        String temp = text;
+        for (char s : text.toCharArray()) {
+            for (int i = 0; i < text.length(); ++i) {
+                char c = text.charAt(i);
+                if (c == 167 && i < text.length() - 1) {
+                    ++i;
+                    text = text.replaceAll(Formatting.byCode(text.charAt(i)).toString(), "").replaceAll("^[　 ]*", "").replaceAll("[　 ]*$", "");
+                }
+            }
+        }
         String string = Utils.getKey(text);
+        if(!Utils.has(text)) {
+            string = temp;
+        }
         if (this.rightToLeft) {
             string = this.mirror(string);
         }
@@ -72,7 +72,7 @@ public abstract class TextRendererMixin {
         Matrix4f matrix4f = matrix.copy();
         matrix4f.addToLastColumn(new Vector3f(0.0F, 0.0F, 0.001F));
         x = this.drawLayer(string, x, y, color, false, matrix4f, vertexConsumerProvider, seeThrough, backgroundColor, light);
-        return (int)x + (shadow ? 1 : 0);
+        return (int) x + (shadow ? 1 : 0);
     }
 
     /**
@@ -101,8 +101,8 @@ public abstract class TextRendererMixin {
                     f += this.fontStorage.getGlyph(c).getAdvance(bl);
                 }
             }
-
             return MathHelper.ceil(f);
         }
     }
+
 }
