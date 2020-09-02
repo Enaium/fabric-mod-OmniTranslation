@@ -1,13 +1,11 @@
 package cn.enaium.ot.mixin;
 
-import cn.enaium.ot.Utils;
-import net.minecraft.client.MinecraftClient;
+import cn.enaium.ot.Data;
+import cn.enaium.ot.utils.Utils;
 import net.minecraft.client.font.TextHandler;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.text.StringRenderable;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
@@ -15,6 +13,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+
+import java.io.IOException;
 
 /**
  * Project: OmniTranslation
@@ -38,27 +38,24 @@ public abstract class TextRendererMixin {
     @Final
     private TextHandler handler;
 
+    @Shadow
+    @Final
+    public int fontHeight;
+
     /**
      * @author Enaium
      */
     @Overwrite
-    private int drawInternal(String text, float x, float y, int color, boolean shadow, Matrix4f matrix, VertexConsumerProvider vertexConsumers, boolean seeThrough, int backgroundColor, int light, boolean mirror) {
-        String temp = text;
-        for (char s : text.toCharArray()) {
-            for (int i = 0; i < text.length(); ++i) {
-                char c = text.charAt(i);
-                if (c == 167 && i < text.length() - 1) {
-                    ++i;
-                    text = text.replaceAll(Formatting.byCode(text.charAt(i)).toString(), "").replaceAll("^[　 ]*", "").replaceAll("[　 ]*$", "");
-                }
-            }
+    private int drawInternal(String text, float x, float y, int color, boolean shadow, Matrix4f matrix, VertexConsumerProvider vertexConsumers, boolean seeThrough, int backgroundColor, int light, boolean mirror) throws IOException {
+
+        if (Utils.getConfig("saveStringList").equals("true")) {
+
+            Data.saveStringList.add(text);
+
         }
 
         String string = Utils.getKey(text);
 
-        if (!Utils.has(text)) {
-            string = temp;
-        }
 
         if (mirror) {
             string = this.mirror(string);

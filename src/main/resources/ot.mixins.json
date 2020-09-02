@@ -4,9 +4,10 @@
   "package": "cn.enaium.ot.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MinecraftClientMixin",
+    "TextRendererMixin"
   ],
   "client": [
-    "TextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
