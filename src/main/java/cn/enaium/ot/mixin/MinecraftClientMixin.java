@@ -25,7 +25,7 @@ public class MinecraftClientMixin {
 
         new File(MinecraftClient.getInstance().runDirectory.toString() + "/OmniTranslation").mkdir();
 
-        File file = new File(MinecraftClient.getInstance().runDirectory.toString() + "/OmniTranslation/saveStringList.txt");
+        File file = new File(MinecraftClient.getInstance().runDirectory.toString() + "/OmniTranslation/saveStringList.json");
 
 
         if (!file.exists()) {
@@ -34,9 +34,18 @@ public class MinecraftClientMixin {
 
         StringBuilder saveStringList = new StringBuilder();
 
+        saveStringList.append("{\n");
         for (String s : Data.saveStringList) {
-            saveStringList.append(s + "\n");
+            saveStringList.append("\t\"" + s + "\" : \"value\"");
+
+            if(s.equals(Data.saveStringList.toArray()[Data.saveStringList.size() - 1])) {
+                saveStringList.append("\n");
+            } else {
+                saveStringList.append(",\n");
+            }
+
         }
+        saveStringList.append("}");
 
 
         FileUtils.write(file, saveStringList.toString());
