@@ -1,10 +1,9 @@
 package cn.enaium.ot.mixin;
 
+import cn.enaium.ot.Data;
 import cn.enaium.ot.Utils;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.FontStorage;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.Vector3f;
@@ -14,8 +13,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-
-import java.io.IOException;
 
 /**
  * Project: OmniTranslation
@@ -43,20 +40,15 @@ public abstract class TextRendererMixin {
      */
     @Overwrite
     private int drawInternal(String text, float x, float y, int color, boolean shadow, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, boolean seeThrough, int backgroundColor, int light) {
-        String temp = text;
-        for (char s : text.toCharArray()) {
-            for (int i = 0; i < text.length(); ++i) {
-                char c = text.charAt(i);
-                if (c == 167 && i < text.length() - 1) {
-                    ++i;
-                    text = text.replaceAll(Formatting.byCode(text.charAt(i)).toString(), "").replaceAll("^[　 ]*", "").replaceAll("[　 ]*$", "");
-                }
-            }
+
+        if (Utils.getConfig("saveStringList").equals("true")) {
+
+            Data.saveStringList.add(text);
+
         }
+
         String string = Utils.getKey(text);
-        if(!Utils.has(text)) {
-            string = temp;
-        }
+
         if (this.rightToLeft) {
             string = this.mirror(string);
         }
