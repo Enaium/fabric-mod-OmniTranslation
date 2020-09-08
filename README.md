@@ -9,3 +9,12 @@
 2. Modify the value of `assets\ot\config` language to the file name of the language file
 
 Language file template Open `.minecraft\OmniTranslation\saveStringList.json` (will be generated after the game is closed, make sure the original text is rendered)
+
+template(模板)
+![wKHTEQ.png](https://s1.ax1x.com/2020/09/08/wKHTEQ.png)
+
+language file(语言文件)
+
+![wKbiCR.png](https://s1.ax1x.com/2020/09/08/wKbiCR.png)
+
+![wKbuUH.png](https://s1.ax1x.com/2020/09/08/wKbuUH.png)
