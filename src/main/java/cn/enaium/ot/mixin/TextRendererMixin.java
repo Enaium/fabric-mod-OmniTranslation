@@ -5,10 +5,10 @@ import cn.enaium.ot.utils.Utils;
 import net.minecraft.client.font.TextHandler;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -32,15 +32,13 @@ public abstract class TextRendererMixin {
 
     @Shadow
     @Final
-    private static Vector3f FORWARD_SHIFT;
-
-    @Shadow
-    @Final
     private TextHandler handler;
 
     @Shadow
     @Final
     public int fontHeight;
+
+    @Shadow @Final private static Vec3f FORWARD_SHIFT;
 
     /**
      * @author Enaium

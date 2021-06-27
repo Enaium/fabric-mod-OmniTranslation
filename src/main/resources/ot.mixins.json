@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "cn.enaium.ot.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "MinecraftClientMixin",
     "TextRendererMixin"
